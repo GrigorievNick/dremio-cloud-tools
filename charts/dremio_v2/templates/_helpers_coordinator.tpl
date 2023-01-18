@@ -151,3 +151,16 @@ tolerations:
   {{- toYaml $coordinatorTolerations | nindent 2 }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Coordinator - grace termination period Resource Request
+*/}}
+{{- define "dremio.coordinator.stopTimeoutPod" -}}
+{{- $stopTimeout := $.Values.coordinator.stopTimeout -}}
+{{- $stopTimeout -}}
+{{- end -}}
+
+{{- define "dremio.coordinator.stopTimeoutDremio" -}}
+{{- $stopTimeout := $.Values.coordinator.stopTimeout -}}
+{{- sub $stopTimeout 10 -}}
+{{- end -}}

@@ -344,3 +344,22 @@ tolerations:
   {{- toYaml $engineTolerations | nindent 2 }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Executor - grace termination period Resource Request
+*/}}
+{{- define "dremio.executor.stopTimeoutPod" -}}
+{{- $context := index . 0 -}}
+{{- $engineName := index . 1 -}}
+{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
+{{- $stopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- $stopTimeout -}}
+{{- end -}}
+
+{{- define "dremio.executor.stopTimeoutDremio" -}}
+{{- $context := index . 0 -}}
+{{- $engineName := index . 1 -}}
+{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
+{{- $stopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- sub $stopTimeout 10 -}}
+{{- end -}}
