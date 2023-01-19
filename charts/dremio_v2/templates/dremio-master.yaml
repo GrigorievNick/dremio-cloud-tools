@@ -70,7 +70,7 @@ spec:
               fieldPath: status.podIP
         {{- end }}
         - name: DREMIO_STOP_TIMEOUT
-          value: {{- include "dremio.coordinator.stopTimeoutDremio" $ -}}
+          value: "{{- include "dremio.coordinator.stopTimeoutDremio" $ -}}"
         - name: DREMIO_MAX_HEAP_MEMORY_SIZE_MB
           value: "{{ template "dremio.coordinator.heapMemory" $ }}"
         - name: DREMIO_MAX_DIRECT_MEMORY_SIZE_MB

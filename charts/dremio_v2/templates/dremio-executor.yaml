@@ -61,7 +61,7 @@ spec:
               fieldPath: status.podIP
         {{- end }}
         - name: DREMIO_STOP_TIMEOUT
-          value: {{- include "dremio.executor.stopTimeoutDremio" $ -}}
+          value: "{{- include "dremio.executor.stopTimeoutDremio" $ -}}"
         - name: DREMIO_MAX_HEAP_MEMORY_SIZE_MB
           value: "{{ template "dremio.executor.heapMemory" (list $ $engineName) }}"
         - name: DREMIO_MAX_DIRECT_MEMORY_SIZE_MB
