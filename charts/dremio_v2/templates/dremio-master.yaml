@@ -33,7 +33,7 @@ spec:
                     values:
                     - dremio-coordinator
               topologyKey: "kubernetes.io/hostname"
-      terminationGracePeriodSeconds: {{- include "dremio.coordinator.stopTimeoutPod" $ -}}
+      terminationGracePeriodSeconds: {{ template "dremio.coordinator.stopTimeoutPod" }}
       {{- include "dremio.coordinator.nodeSelector" $ | nindent 6 }}
       {{- include "dremio.coordinator.tolerations" $ | nindent 6 }}
       containers:
@@ -70,7 +70,7 @@ spec:
               fieldPath: status.podIP
         {{- end }}
         - name: DREMIO_STOP_TIMEOUT
-          value: "{{- include "dremio.coordinator.stopTimeoutDremio" $ -}}"
+          value: "{{ template "dremio.coordinator.stopTimeoutDremio" $ }}"
         - name: DREMIO_MAX_HEAP_MEMORY_SIZE_MB
           value: "{{ template "dremio.coordinator.heapMemory" $ }}"
         - name: DREMIO_MAX_DIRECT_MEMORY_SIZE_MB
