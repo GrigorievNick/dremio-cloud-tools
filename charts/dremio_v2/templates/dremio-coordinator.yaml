@@ -35,10 +35,6 @@ spec:
           requests:
             cpu: {{ $.Values.coordinator.cpu }}
             memory: {{ $.Values.coordinator.memory }}M
-        lifecycle:
-          preStop:
-            exec:
-              command: [ "/opt/dremio/bin/dremio stop" ]
         volumeMounts:
         - name: dremio-config
           mountPath: /opt/dremio/conf
@@ -90,9 +86,15 @@ spec:
           value: "/opt/dremio/aws/credentials"
         - name: AWS_SHARED_CREDENTIALS_FILE
           value: "/opt/dremio/aws/credentials"
+        lifecycle:
+          preStop:
+            exec:
+              command: [ "/opt/dremio/bin/dremio stop" ]
         command: ["/opt/dremio/bin/dremio"]
         args: ["start-fg"]
         ports:
+        - containerPort: 9047
+          name: web
         - containerPort: 31010
           name: client
         - containerPort: 32010
