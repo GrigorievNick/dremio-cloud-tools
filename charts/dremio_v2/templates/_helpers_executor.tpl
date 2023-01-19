@@ -352,7 +352,7 @@ Executor - grace termination period Resource Request
 {{- $context := index . 0 -}}
 {{- $engineName := index . 1 -}}
 {{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
-{{- $stopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- $stopTimeout := int (default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout) -}}
 {{- $stopTimeout -}}
 {{- end -}}
 
@@ -360,6 +360,6 @@ Executor - grace termination period Resource Request
 {{- $context := index . 0 -}}
 {{- $engineName := index . 1 -}}
 {{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
-{{- $stopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- $stopTimeout := int (default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout) -}}
 {{- sub $stopTimeout 10 -}}
 {{- end -}}
