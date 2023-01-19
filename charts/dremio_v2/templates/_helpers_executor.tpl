@@ -351,15 +351,15 @@ Executor - grace termination period Resource Request
 {{- define "dremio.executor.stopTimeoutPod" -}}
 {{- $context := index . 0 -}}
 {{- $engineName := index . 1 -}}
-{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
-{{- $stopTimeout := int (default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout) -}}
-{{- $stopTimeout -}}
+{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.engineOverride) $engineName) -}}
+{{- $engineStopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- $engineStopTimeout -}}
 {{- end -}}
 
 {{- define "dremio.executor.stopTimeoutDremio" -}}
 {{- $context := index . 0 -}}
 {{- $engineName := index . 1 -}}
-{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.stopTimeout) $engineName) -}}
-{{- $stopTimeout := int (default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout) -}}
-{{- sub $stopTimeout 10 -}}
+{{- $engineConfiguration := default (dict) (get (default (dict) $context.Values.executor.engineOverride) $engineName) -}}
+{{- $engineStopTimeout := default ($context.Values.executor.stopTimeout) $engineConfiguration.stopTimeout -}}
+{{- sub $engineStopTimeout 10 -}}
 {{- end -}}
